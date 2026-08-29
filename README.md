@@ -1,6 +1,6 @@
 # Sistema de Gestión y Trazabilidad Dietoterápica
 
-Trabajo Final Integrador — Tecnicatura Universitaria en Programación (UTN)
+Trabajo Final Integrador — Tecnicatura Universitaria en Programación a Distancia (UTN)
 
 ## Descripción
 
