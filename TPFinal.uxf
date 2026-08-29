@@ -1,0 +1,135 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>440</x><y>280</y><w>210</w><h>190</h></coordinates><panel_attributes>HistoriaClinica
+--
+-id: Long
+-paciente: Paciente
+-evoluciones: List&lt;Evoluciones&gt;
+--
++agregarEvolucion(evolucion: Evolucion): void
++getEvoluciones(): List&lt;Evoluciones&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>570</y><w>210</w><h>190</h></coordinates><panel_attributes>Nutricionista
+--
+-nombre: String
+-apellido: String
+-matricula: Long
+
+--
++registrarEvolucion(hc: HistoriaClinica, nota: String): void
++prescribirRegimen(paciente: Paciente, regimen: regimen): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>270</y><w>210</w><h>190</h></coordinates><panel_attributes>Usuario
+--
+-id: Long
+-username: String
+-passowrd String
+-rol: Rol
+-activo: Boolean
+--
++autenticar():Boolean
++getRol():Rol
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>450</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>280</y><w>210</w><h>190</h></coordinates><panel_attributes>Paciente
+--
+-id: Long
+-nombre: String
+-apellido: String
+-historiaClinica: HistoriaClinica
+-fechaIngreso: LocalDate
+-estadoInternacion: EstadoInternacion
+--
++registrarAlta(): void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>360</y><w>170</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+</panel_attributes><additional_attributes>10;20;150;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Cama
+--
+-id: Long
+-numero:String
+-sector: Sector
+-estado: EstadoCama
+--
++asignarPaciente(paciente: Paciente): void
++cambiarEstado(estado: EstadoCama):void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>440</x><y>570</y><w>210</w><h>190</h></coordinates><panel_attributes>Evolucion
+--
+-id: Long
+-fechaHora: LocalDateTime
+-nota: String
+-firmaNutricionista: Nutricionista
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>560</y><w>210</w><h>190</h></coordinates><panel_attributes>PreferenciaAlimentaria
+--
+-id: Long
+-tipo: TipoPreferencia
+-alimento :Alimento
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>460</y><w>50</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>660</y><w>160</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>140;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>460</y><w>50</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>180</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+m2=1
+m1=1
+</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>560</y><w>210</w><h>190</h></coordinates><panel_attributes>Alimento
+--
+-id: Long
+-nombre:String
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>640</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
+m2=1
+m1=1
+</panel_attributes><additional_attributes>90;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>810</y><w>210</w><h>190</h></coordinates><panel_attributes>Regimen
+--
+-id: Long
+-nombre:String
+-tipo :TipoRegimen
+-menus: List&lt;Menu&gt;
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>810</y><w>210</w><h>190</h></coordinates><panel_attributes>Menu
+--
+-id: Long
+-nombre:String
+-alimentos : List&lt;alimento&gt;
+--
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1000</x><y>900</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1170</x><y>740</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>800</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+EstadoCama
+--
+OCUPADA
+LIBRE
+BLOQUEADA
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>800</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+TurnoComida
+--
+DESAYUNO
+ALMUERZO
+MERIENDA
+CENA
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>800</y><w>210</w><h>180</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+TipoRegimen
+--
+GENERAL
+LIQUIDO
+BLANDO
+POSTOPERATORIO
+DIABETICO
+HIPOSODICO
+PROCESADO
+CELIACO</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>910</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Sector
+--
+PEDIATRIA
+MATERNIDAD
+CIRUGIA
+CLINICA
+TERAPIA
+TRAUMATOLOGIA
+UROLOGIA
+
+
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
