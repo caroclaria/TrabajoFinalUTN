@@ -11,7 +11,6 @@
 -nombre: String
 -apellido: String
 -matricula: Long
-
 --
 +registrarEvolucion(hc: HistoriaClinica, nota: String): void
 +prescribirRegimen(paciente: Paciente, regimen: regimen): void</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>100</x><y>270</y><w>210</w><h>190</h></coordinates><panel_attributes>Usuario
@@ -24,22 +23,24 @@
 --
 +autenticar():Boolean
 +getRol():Rol
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>450</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>280</y><w>210</w><h>190</h></coordinates><panel_attributes>Paciente
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>450</y><w>30</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;120</additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>280</y><w>210</w><h>220</h></coordinates><panel_attributes>Paciente
 --
 -id: Long
 -nombre: String
 -apellido: String
 -historiaClinica: HistoriaClinica
 -fechaIngreso: LocalDate
--estadoInternacion: EstadoInternacion
+-fechaAlta: LocalDate
+-diagnosticoBase: String
 --
 +registrarAlta(): void
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>640</x><y>360</y><w>170</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
-</panel_attributes><additional_attributes>10;20;150;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>0</y><w>210</w><h>190</h></coordinates><panel_attributes>Cama
+
+</panel_attributes><additional_attributes>10;20;150;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>0</y><w>210</w><h>210</h></coordinates><panel_attributes>Cama
 --
 -id: Long
--numero:String
+-numero: String
+-piso: Integer
 -sector: Sector
 -estado: EstadoCama
 --
@@ -58,25 +59,25 @@
 -tipo: TipoPreferencia
 -alimento :Alimento
 --
-
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>530</x><y>460</y><w>50</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=1
 m1=0..*</panel_attributes><additional_attributes>10;110;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>300</x><y>660</y><w>160</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=1
 m1=0..*</panel_attributes><additional_attributes>140;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>890</x><y>460</y><w>50</w><h>120</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
 m2=1
-m1=0..*</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>180</y><w>40</w><h>120</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..*</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>900</x><y>210</y><w>40</w><h>90</h></coordinates><panel_attributes>lt=&lt;-
 m2=1
 m1=1
-</panel_attributes><additional_attributes>10;100;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>560</y><w>210</w><h>190</h></coordinates><panel_attributes>Alimento
+
+</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>560</y><w>210</w><h>190</h></coordinates><panel_attributes>Alimento
 --
 -id: Long
 -nombre:String
 --
-
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>640</y><w>110</w><h>50</h></coordinates><panel_attributes>lt=&lt;-
 m2=1
 m1=1
+
 </panel_attributes><additional_attributes>90;20;10;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>800</x><y>810</y><w>210</w><h>190</h></coordinates><panel_attributes>Regimen
 --
 -id: Long
@@ -84,43 +85,49 @@ m1=1
 -tipo :TipoRegimen
 -menus: List&lt;Menu&gt;
 --
-
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1080</x><y>810</y><w>210</w><h>190</h></coordinates><panel_attributes>Menu
 --
 -id: Long
--nombre:String
--alimentos : List&lt;alimento&gt;
+-turno: TurnoComida
+-fecha: LocalDate
 --
-
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1000</x><y>900</y><w>100</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1
-m1=0..*</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>1170</x><y>740</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m1=0..*</panel_attributes><additional_attributes>80;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>1330</x><y>810</y><w>180</w><h>120</h></coordinates><panel_attributes>Plato
+--
+-id: Long
+-nombre: String
+--
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>1290</x><y>850</y><w>60</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
 m2=1
-m1=0..*</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>800</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+m1=0..*</panel_attributes><additional_attributes>40;20;10;20</additional_attributes></element><element><id>Relation</id><coordinates><x>1170</x><y>640</y><w>230</w><h>190</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;-
+m2=1
+m1=0..*</panel_attributes><additional_attributes>10;10;210;170</additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>810</y><w>210</w><h>120</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
 EstadoCama
 --
+DISPONIBLE
 OCUPADA
-LIBRE
+MANTENIMIENTO
 BLOQUEADA
-
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>800</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>810</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
 TurnoComida
 --
 DESAYUNO
 ALMUERZO
 MERIENDA
 CENA
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>800</y><w>210</w><h>180</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>810</y><w>210</w><h>200</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
 TipoRegimen
 --
 GENERAL
 LIQUIDO
 BLANDO
-POSTOPERATORIO
-DIABETICO
+BLANDO_CON_POLLO
 HIPOSODICO
-PROCESADO
-CELIACO</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>910</y><w>210</w><h>100</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+BLANDO_MASTICATORIO
+DIABETICO
+CELIACO
+INDIVIDUAL</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>940</y><w>210</w><h>110</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
 Sector
 --
 PEDIATRIA
@@ -130,6 +137,17 @@ CLINICA
 TERAPIA
 TRAUMATOLOGIA
 UROLOGIA
-
-
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>330</x><y>1020</y><w>210</w><h>110</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+Rol
+--
+NUTRICIONISTA
+COCINA
+ADMINISTRADOR
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>1030</y><w>210</w><h>120</h></coordinates><panel_attributes>&lt;&lt;enumeration&gt;&gt;
+TipoPreferencia
+--
+ACEPTADO
+RECHAZO
+ALERGIA
+INTOLERANCIA
 </panel_attributes><additional_attributes></additional_attributes></element></diagram>
