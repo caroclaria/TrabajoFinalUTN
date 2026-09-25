@@ -53,5 +53,4 @@ npm run dev
 Ver `/docs` para la propuesta de proyecto, esquema de base de datos e informes de avance.
 
 ## Estado del proyecto
-
-🔵 1.ª Entrega — Propuesta y estructura del Repositorio.
+2.ª Entrega — Esquema de Base de Datos y Módulos definidos.
