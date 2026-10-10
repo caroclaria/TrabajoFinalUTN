@@ -1,0 +1,26 @@
+﻿# Archivos de entorno y credenciales
+**/.env
+**/.env.*
+*.env
+
+# Maven / Build
+**/target/
+target/
+
+# IDEs (IntelliJ, VS Code, Eclipse, NetBeans)
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/.vscode/
+**/.settings/
+**/.classpath
+**/.project
+**/nbproject/private/
+**/nbbuild/
+**/nbdist/
+
+# Logs y SO
+*.log
+Thumbs.db
+.DS_Store
