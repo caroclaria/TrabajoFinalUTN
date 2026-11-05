@@ -1,6 +1,6 @@
 package com.utn.tpfinal.enums;
 
-public enum TIpoRegimen {
+public enum TipoRegimen {
     GENERAL,
     LIQUIDO,
     BLANDO,
