@@ -1,10 +1,13 @@
 package com.utn.tpfinal.entities;
-
+import com.utn.tpfinal.enums.Rol;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "usuario")
+
+// Las clses que hereden de Usuario, van a vivir el tablas seapardas:
+@Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class Usuario {
 
