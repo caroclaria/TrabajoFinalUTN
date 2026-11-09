@@ -1,0 +1,25 @@
+-- Datos de ejemplo para probar el mapa de camas.
+INSERT INTO cama (numero, piso, sector, estado) VALUES
+  ('101', 1, 'CLINICA', 'DISPONIBLE'),
+  ('102', 1, 'CLINICA', 'DISPONIBLE'),
+  ('103', 1, 'CLINICA', 'DISPONIBLE'),
+  ('104', 1, 'CLINICA', 'MANTENIMIENTO'),
+  ('105', 1, 'UROLOGIA', 'DISPONIBLE'),
+  ('106', 1, 'UROLOGIA', 'DISPONIBLE'),
+  ('201', 2, 'CIRUGIA', 'DISPONIBLE'),
+  ('202', 2, 'CIRUGIA', 'DISPONIBLE'),
+  ('203', 2, 'CIRUGIA', 'DISPONIBLE'),
+  ('204', 2, 'TRAUMATOLOGIA', 'DISPONIBLE'),
+  ('205', 2, 'TRAUMATOLOGIA', 'DISPONIBLE'),
+  ('206', 2, 'TRAUMATOLOGIA', 'BLOQUEADA'),
+  ('301', 3, 'PEDIATRIA', 'DISPONIBLE'),
+  ('302', 3, 'PEDIATRIA', 'DISPONIBLE'),
+  ('303', 3, 'PEDIATRIA', 'DISPONIBLE'),
+  ('304', 3, 'MATERNIDAD', 'DISPONIBLE'),
+  ('305', 3, 'MATERNIDAD', 'DISPONIBLE'),
+  ('306', 3, 'MATERNIDAD', 'DISPONIBLE'),
+  ('401', 4, 'TERAPIA', 'DISPONIBLE'),
+  ('402', 4, 'TERAPIA', 'DISPONIBLE'),
+  ('403', 4, 'TERAPIA', 'DISPONIBLE'),
+  ('404', 4, 'TERAPIA', 'DISPONIBLE');
+ 
