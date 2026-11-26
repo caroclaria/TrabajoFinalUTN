@@ -1,6 +1,7 @@
 package com.utn.tpfinal.entities;
 import com.utn.tpfinal.enums.Rol;
 import jakarta.persistence.*;
+import com.utn.tpfinal.enums.Rol;
 import lombok.Data;
 
 @Entity

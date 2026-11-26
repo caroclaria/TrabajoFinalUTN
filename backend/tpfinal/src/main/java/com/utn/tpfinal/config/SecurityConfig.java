@@ -54,7 +54,15 @@ public class SecurityConfig {
                 // Historia clínica: solo un NUTRICIONISTA puede firmar evoluciones (necesita matrícula);
                 // el administrador puede consultarlas. Cocina no accede a datos clínicos.
                 .requestMatchers(HttpMethod.POST, "/api/pacientes/*/evoluciones").hasRole("NUTRICIONISTA")
+                // Incluye preferencias, régimen indicado y matching (/api/pacientes/{id}/preferencias, /regimen, /matching)
                 .requestMatchers("/api/pacientes/**").hasAnyRole("ADMINISTRADOR", "NUTRICIONISTA")
+
+                // Catálogo de alimentos, platos y menús: cualquiera logueado lo consulta (cocina lo necesita
+                // para producir), pero solo nutricionistas y administradores lo modifican.
+                .requestMatchers(HttpMethod.GET, "/api/alimentos/**", "/api/platos/**", "/api/menus/**",
+                        "/api/catalogo/**").authenticated()
+                .requestMatchers("/api/alimentos/**", "/api/platos/**", "/api/menus/**")
+                        .hasAnyRole("ADMINISTRADOR", "NUTRICIONISTA")
 
                 // Todo lo demás (los módulos de Carolina y Jazmín) exige estar logueado
                 .anyRequest().authenticated()

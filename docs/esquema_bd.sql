@@ -38,7 +38,11 @@ CREATE TABLE paciente (
     diagnostico_base    TEXT,                          -- RF03: diagnóstico médico de base
     historia_clinica_id BIGINT NOT NULL UNIQUE REFERENCES historia_clinica(id),
     fecha_ingreso       DATE NOT NULL,
-    fecha_alta          DATE                            -- NULL mientras sigue internado
+    fecha_alta          DATE,                           -- NULL mientras sigue internado
+    tipo_regimen        VARCHAR(30)                     -- RF04/RF05: régimen indicado (NULL hasta que se indique)
+                        CHECK (tipo_regimen IN ('GENERAL', 'LIQUIDO', 'BLANDO', 'BLANDO_CON_POLLO',
+                                                'HIPOSODICO', 'BLANDO_MASTICATORIO', 'DIABETICO',
+                                                'CELIACO', 'INDIVIDUAL'))
 );
  
 -- Registro inmutable: solo se insertan filas, nunca se actualizan/borran (a nivel aplicación)
@@ -80,43 +84,47 @@ CREATE TABLE preferencia_alimentaria (
     UNIQUE (paciente_id, alimento_id)  -- un paciente no puede tener 2 preferencias sobre el mismo alimento
 );
  
--- Regímenes, menús y platos (RF04) — "menús desagregados por platos e ingredientes"
+-- Platos, ingredientes y menús cíclicos (RF04) — "menús desagregados por platos e ingredientes"
+-- El régimen no es una tabla: es un valor fijo (como el turno), igual que en el enum TipoRegimen.
 
- 
-CREATE TABLE regimen (
-    id      BIGSERIAL PRIMARY KEY,
-    nombre  VARCHAR(100) NOT NULL,
-    tipo    VARCHAR(30) NOT NULL
-            CHECK (tipo IN ('GENERAL', 'LIQUIDO', 'BLANDO', 'BLANDO_CON_POLLO',
-                            'HIPOSODICO', 'BLANDO_MASTICATORIO', 'DIABETICO',
-                            'CELIACO', 'INDIVIDUAL'))
-);
- 
-CREATE TABLE menu (
-    id          BIGSERIAL PRIMARY KEY,
-    regimen_id  BIGINT NOT NULL REFERENCES regimen(id) ON DELETE CASCADE,
-    turno       VARCHAR(30) NOT NULL
-                CHECK (turno IN ('DESAYUNO', 'ALMUERZO', 'MERIENDA', 'CENA')),
-    fecha       DATE NOT NULL   -- permite menús diarios o cíclicos según cómo se pueble
-);
- 
 CREATE TABLE plato (
     id      BIGSERIAL PRIMARY KEY,
-    menu_id BIGINT NOT NULL REFERENCES menu(id) ON DELETE CASCADE,
-    nombre  VARCHAR(100) NOT NULL
+    nombre  VARCHAR(100) NOT NULL UNIQUE
 );
- 
--- Ingredientes de cada plato (N:M)
-CREATE TABLE plato_alimento (
-    plato_id    BIGINT NOT NULL REFERENCES plato(id) ON DELETE CASCADE,
-    alimento_id BIGINT NOT NULL REFERENCES alimento(id) ON DELETE CASCADE,
+
+-- Ingredientes de cada plato: qué alimento lleva y en qué cantidad
+CREATE TABLE plato_ingrediente (
+    plato_id      BIGINT NOT NULL REFERENCES plato(id) ON DELETE CASCADE,
+    alimento_id   BIGINT NOT NULL REFERENCES alimento(id),   -- sin CASCADE: no se borra un alimento en uso
+    cantidad      DOUBLE PRECISION NOT NULL CHECK (cantidad > 0),
+    unidad_medida VARCHAR(30),
     PRIMARY KEY (plato_id, alimento_id)
 );
- 
+
+-- Menú cíclico: un único menú por lista (día del ciclo) + régimen + turno
+CREATE TABLE menu (
+    id            BIGSERIAL PRIMARY KEY,
+    numero_lista  INTEGER NOT NULL CHECK (numero_lista BETWEEN 1 AND 10),
+    tipo_regimen  VARCHAR(30) NOT NULL
+                  CHECK (tipo_regimen IN ('GENERAL', 'LIQUIDO', 'BLANDO', 'BLANDO_CON_POLLO',
+                                          'HIPOSODICO', 'BLANDO_MASTICATORIO', 'DIABETICO',
+                                          'CELIACO', 'INDIVIDUAL')),
+    turno         VARCHAR(30) NOT NULL
+                  CHECK (turno IN ('DESAYUNO', 'ALMUERZO', 'MERIENDA', 'CENA')),
+    UNIQUE (numero_lista, tipo_regimen, turno)
+);
+
+-- Platos de cada menú (N:M: un plato puede estar en varios menús)
+CREATE TABLE menu_plato (
+    menu_id   BIGINT NOT NULL REFERENCES menu(id) ON DELETE CASCADE,
+    plato_id  BIGINT NOT NULL REFERENCES plato(id),          -- sin CASCADE: no se borra un plato en uso
+    PRIMARY KEY (menu_id, plato_id)
+);
+
 -- Índices sugeridos
  
 CREATE INDEX idx_evolucion_historia ON evolucion(historia_clinica_id);
 CREATE INDEX idx_preferencia_paciente ON preferencia_alimentaria(paciente_id);
-CREATE INDEX idx_menu_regimen ON menu(regimen_id);
-CREATE INDEX idx_plato_menu ON plato(menu_id);
+CREATE INDEX idx_menu_regimen_turno ON menu(tipo_regimen, turno);
+CREATE INDEX idx_plato_ingrediente_alimento ON plato_ingrediente(alimento_id);
 CREATE INDEX idx_cama_piso_sector ON cama(piso, sector);

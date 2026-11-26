@@ -1,4 +1,4 @@
-Poner tamvien modulos.md:
+Poner tambien modulos.md:
 # Módulos a Desarrollar
 
 Sistema de Gestión y Trazabilidad Dietoterápica — Sanatorio "Unidos por la Salud (UxS)"
