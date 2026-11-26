@@ -30,19 +30,19 @@ public class PlatoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PlatoResponseDTO> getById(@PathVariable Long id) {
+    public ResponseEntity<PlatoResponseDTO> getById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(platoService.getById(id));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<PlatoResponseDTO> update(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody PlatoRequestDTO request) {
         return ResponseEntity.ok(platoService.update(id, request));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         platoService.delete(id);
         return ResponseEntity.noContent().build();
     }

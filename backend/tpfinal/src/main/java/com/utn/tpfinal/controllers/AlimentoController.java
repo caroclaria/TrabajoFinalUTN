@@ -31,21 +31,21 @@ public class AlimentoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AlimentoResponseDTO> obtenerPorId(@PathVariable Long id) {
+    public ResponseEntity<AlimentoResponseDTO> obtenerPorId(@PathVariable("id") Long id) {
         AlimentoResponseDTO alimento = alimentoService.obtenerPorId(id);
         return ResponseEntity.ok(alimento);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<AlimentoResponseDTO> actualizar(
-            @PathVariable Long id,
+            @PathVariable("id") Long id,
             @Valid @RequestBody AlimentoRequestDTO request) {
         AlimentoResponseDTO actualizado = alimentoService.actualizar(id, request);
         return ResponseEntity.ok(actualizado);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable("id") Long id) {
         alimentoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }

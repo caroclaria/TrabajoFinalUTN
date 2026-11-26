@@ -1,9 +1,10 @@
 package com.utn.tpfinal.entities;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 
+// Ingrediente de un plato: qué alimento lleva y en qué cantidad.
+// Es @Embeddable porque no tiene vida propia: existe solo como parte de un Plato.
 @Embeddable
 @Getter
 @Setter
@@ -13,12 +14,12 @@ import lombok.*;
 public class IngredientePlato {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "food_id", nullable = false)
+    @JoinColumn(name = "alimento_id", nullable = false)
     private Alimento alimento;
 
-    @Column(name = "quantity", nullable = false)
+    @Column(name = "cantidad", nullable = false)
     private Double cantidad;
 
-    @Column(name = "unit_of_measure", length = 30)
+    @Column(name = "unidad_medida", length = 30)
     private String unidadMedida;
 }

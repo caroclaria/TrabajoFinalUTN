@@ -19,18 +19,17 @@ public class Plato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true, length = 100)
+    @Column(name = "nombre", nullable = false, unique = true, length = 100)
     private String nombre;
 
+    // Ingredientes del plato: se guardan en la tabla plato_ingrediente.
+    // Es la base del motor de matching (RF05): se cruzan contra las preferencias del paciente.
     @ElementCollection
-    @CollectionTable(
-            name = "dish_ingredient",
-            joinColumns = @JoinColumn(name = "dish_id")
-    )
+    @CollectionTable(name = "plato_ingrediente", joinColumns = @JoinColumn(name = "plato_id"))
     private List<IngredientePlato> ingredientes = new ArrayList<>();
 
-    public Plato(String nombre, List<IngredientePlato> ingredientes){
+    public Plato(String nombre, List<IngredientePlato> ingredientes) {
         this.nombre = nombre;
-        this.ingredientes= ingredientes;
+        this.ingredientes = ingredientes;
     }
 }

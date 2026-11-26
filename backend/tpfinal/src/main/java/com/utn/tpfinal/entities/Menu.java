@@ -1,34 +1,41 @@
 package com.utn.tpfinal.entities;
 
+import com.utn.tpfinal.enums.TipoRegimen;
 import com.utn.tpfinal.enums.TurnoComida;
 import jakarta.persistence.*;
-import lombok.*;
-import com.utn.tpfinal.enums.TipoRegimen;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+// Menú cíclico: para cada "lista" (día del ciclo), régimen y turno hay un único menú.
+// Ej: Lista 3 - HIPOSODICO - ALMUERZO -> [Pollo al horno sin sal, Puré de calabaza, Gelatina]
 @Entity
-@Table(name = "menu")
+@Table(name = "menu",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"numero_lista", "tipo_regimen", "turno"}))
 @Getter
 @Setter
 @NoArgsConstructor
 public class Menu {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "list_number", nullable = false)
-    private Integer numeroLista; // 1 a 10 (La "Lista" o día del ciclo)
+    @Column(name = "numero_lista", nullable = false)
+    private Integer numeroLista; // 1 a 10: día del ciclo
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "regimen_type", nullable = false)
-    private TipoRegimen tipoRegimen; // GENERAL, HIPOSODICO, etc.
+    @Column(name = "tipo_regimen", nullable = false, length = 30)
+    private TipoRegimen tipoRegimen;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "meal_shift", nullable = false)
-    private TurnoComida turnoComida; // ALMUERZO, CENA, etc.
+    @Column(name = "turno", nullable = false, length = 30)
+    private TurnoComida turnoComida;
 
+    // N:M -> un plato puede repetirse en varios menús
     @ManyToMany
     @JoinTable(
             name = "menu_plato",
@@ -37,12 +44,10 @@ public class Menu {
     )
     private List<Plato> platos = new ArrayList<>();
 
-    public Menu(Integer numeroLista, TipoRegimen tipoRegimen,  TurnoComida turnoComida, List<Plato> platos ) {
+    public Menu(Integer numeroLista, TipoRegimen tipoRegimen, TurnoComida turnoComida, List<Plato> platos) {
         this.numeroLista = numeroLista;
         this.tipoRegimen = tipoRegimen;
         this.turnoComida = turnoComida;
         this.platos = platos;
-
     }
-
 }

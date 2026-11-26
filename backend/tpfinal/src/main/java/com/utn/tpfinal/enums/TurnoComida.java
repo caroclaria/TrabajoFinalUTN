@@ -2,7 +2,7 @@ package com.utn.tpfinal.enums;
 
 public enum TurnoComida {
     DESAYUNO,
-    ALMEURZO,
+    ALMUERZO,
     MERIENDA,
     CENA
 }

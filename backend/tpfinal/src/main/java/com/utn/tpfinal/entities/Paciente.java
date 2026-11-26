@@ -1,5 +1,6 @@
 package com.utn.tpfinal.entities;
 
+import com.utn.tpfinal.enums.TipoRegimen;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,4 +38,10 @@ public class Paciente {
     // null mientras el paciente sigue internado
     @Column(name = "fecha_alta")
     private LocalDate fechaAlta;
+
+    // Régimen dietoterápico indicado por el nutricionista (RF04/RF05).
+    // null hasta que se le indique uno. Define qué menú le corresponde al paciente.
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_regimen", length = 30)
+    private TipoRegimen tipoRegimen;
 }

@@ -1,19 +1,17 @@
 package com.utn.tpfinal.dtos.regimen.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 public record IngredienteRequestDTO(
-        @NotNull(message = "Food ID is required")
-        @JsonProperty("alimentoId")
+        @NotNull(message = "Debe indicar el alimento")
         Long alimentoId,
 
-        @NotNull(message = "Quantity is required")
-        @Positive(message = "Quantity must be greater than zero")
-        @JsonProperty("cantidad")
+        @NotNull(message = "Debe indicar la cantidad")
+        @Positive(message = "La cantidad debe ser mayor a cero")
         Double cantidad,
 
-        @JsonProperty("unidadMedida")
+        @Size(max = 30, message = "La unidad de medida admite hasta 30 caracteres")
         String unidadMedida
 ) {}
